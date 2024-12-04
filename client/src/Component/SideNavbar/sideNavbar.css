@@ -1,0 +1,29 @@
+.home-sideNav{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 92vh;
+    overflow-y: auto;
+    position: fixed;
+    top:55px;
+    left:0px;
+    width: 200px;
+    padding: 14px;
+    background-color: rgb(27, 27, 27);
+    flex:0.16 1;
+    color: white;
+}
+
+.home-sideNavTopOptionTitile{
+    height: 40px;;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(47,47,47);
+        border-radius: 10px;
+    }
+    font-weight: 600;
+}

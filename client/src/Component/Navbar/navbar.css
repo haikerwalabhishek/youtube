@@ -1,0 +1,168 @@
+/* -------------Left Navbar */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
+.navbar{
+    height:56px;
+    box-sizing: border-box;
+    padding: 10px 16px;
+    display:flex;
+    align-items:center;
+    width:100%;
+    justify-content: space-between;
+    top:0;
+    position:fixed;
+    background-color: rgb(27, 27, 27);
+    z-index:10;
+}
+
+.nav-left{
+    gap:10px;
+    height:50px;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    width:fit-content;
+}
+
+.nav-ham{
+    width:45px;
+    height:45px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.nav-ham:hover{
+    background-color: rgb(58,57,57);
+    border-radius: 50%;
+}
+
+.nav_youtubeImg{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    color:white;
+    text-decoration:none;
+    gap:3px;
+}
+
+.nav_youtubeImage{
+    color:white;
+    height: 35px;
+}
+
+.nav_youtubeTitle{
+    font-size:23px;
+    word-spacing: 0px;
+    letter-spacing:0px;
+    font-family: "Oswald", "sans-serif";
+    font-weight:400;
+    font-style:normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* -------------Middle Navbar */
+
+.nav-middle{
+    display:flex;
+    height:50px;
+    gap:20px;
+    width:50%;
+    align-items: center;
+}
+
+.nav_searchBox{
+    width:80%;
+    display:flex;
+}
+
+.nav_searchBoxImput{
+    width:100%;
+    height:40px;
+    border-top-left-radius:20px;
+    border-bottom-left-radius:20px;
+    border:1px solid rgb(58,57,57);
+    background-color: #12121212;
+    color:white;
+    font-size:16px;
+    padding-left:30px;
+    outline: none;
+}
+
+.nav_searchIconBox{
+    cursor:pointer;
+    width:70px;
+    border:1px solid rgb(58,57,57);
+    background-color: rgb(58,57,57);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
+}
+
+.nav_mic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(58,57,57);
+    border-radius: 50%;
+    width:45px;
+    height:45px;
+    cursor: pointer;
+}
+
+.nav_mic:hover, .nav_searchIconBox:hover,.nav-options-right:hover{
+    background-color:rgb(75, 75, 75);
+}
+
+
+/* -------------Right Navbar */
+.nav-right{
+    height:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.nav-options-right{
+    width:45px;
+    height:45px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.nav-model{
+    position:absolute;
+    top: 50px;
+    width: 100%;
+    z-index: 20;
+    color: white;
+    background-color: rgb(43, 43, 43);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.nav-model-option{
+    /* background-color: rgb(58,57,57); */
+    font-weight: 600;
+    padding: 10px;
+    cursor: pointer;
+    &:hover{
+        background-color:rgb(51, 51, 51);
+    }
+}
+
+.signIng{
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
