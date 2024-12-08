@@ -18,6 +18,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import LockIcon from '@mui/icons-material/Lock';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import {Link} from "react-router-dom"
+
 const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
     const [floatNav, setFloatNav] = useState(false);
     const [themeMenu, setThemeMenu] = useState(false);
@@ -82,6 +84,7 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                         <MenuIcon className="iconbg" sx={{color:"white", height:"30px", width:"30px"}}/>
                     </Tooltip>
                 </div>
+                <Link to="/" style={{textDecoration:"none"}}>
                 <Tooltip
                     className="nav_youtubeImg"
                     title="Youtube Home"
@@ -106,6 +109,7 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                     <img  src="/youtube.png" className="nav_youtubeImage"/>
                     <div className="nav_youtubeTitle">YouTube</div>
                 </Tooltip>
+                </Link>
             </div>
 
             {/* navbar middle */}

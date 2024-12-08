@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./homepage.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import {Link} from "react-router-dom";
 
 const HomePage = () => {
   const scrollContainerRef = useRef(null);
@@ -65,7 +66,7 @@ const HomePage = () => {
       <div className="home_mainPage">
         {Array(6).fill(null).map((_,idx)=>{
           return (
-            <div className="youtube_video">
+            <Link key={idx-100} to={`/watch/${idx-100}`} className="youtube_video">
             {/* thumbnail */}
             <div className="thumbnailBox">
               <img src="/youtube.jpg" alt="thumbnail" className="thumbnailImg" />
@@ -89,7 +90,7 @@ const HomePage = () => {
               </div>
             </div>
   
-          </div>
+          </Link>
           )
         })}
       </div>
