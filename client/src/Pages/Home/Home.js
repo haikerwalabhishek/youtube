@@ -3,10 +3,10 @@ import "./home.css"
 import SideNavbar from '../../Component/SideNavbar/SideNavbar'
 import HomePage from '../../Component/HomePage/HomePage'
 
-const Home = () => {
+const Home = ({userPic,toggleSidebar,setToggleSidebar}) => {
   return (
     <div className="home">
-        <SideNavbar/>
+        <SideNavbar userPic={userPic} setToggleSidebar={setToggleSidebar} toggleSidebar={toggleSidebar}/>
         <HomePage/>
     </div>
   )

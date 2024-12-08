@@ -116,7 +116,7 @@
     cursor: pointer;
 }
 
-.nav_mic:hover, .nav_searchIconBox:hover,.nav-options-right:hover{
+.nav_mic:hover, .nav_searchIconBox:hover{
     background-color:rgb(75, 75, 75);
 }
 
@@ -143,26 +143,52 @@
 .nav-model{
     position:absolute;
     top: 50px;
-    width: 100%;
+    left: -47px;
+    width: 150%;
     z-index: 20;
     color: white;
-    background-color: rgb(43, 43, 43);
+    background-color: rgb(58,57,57);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .nav-model-option{
-    /* background-color: rgb(58,57,57); */
+    background-color: rgb(50,50,50);
     font-weight: 600;
     padding: 10px;
     cursor: pointer;
     &:hover{
-        background-color:rgb(51, 51, 51);
-    }
+        background-color: rgb(58,57,57);
+    };
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .signIng{
-    color: white;
+    margin: 0 auto;
+    background-color: rgb(47, 47, 47);
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
     font-weight: 600;
     cursor: pointer;
+    &:hover{
+      background-color: rgb(40, 40, 40);
+    }
+    color: white;
+}
+
+.nav-model-back{
+    font-weight: 600;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &:hover{
+        background-color:rgb(51, 51, 51);
+    };
 }

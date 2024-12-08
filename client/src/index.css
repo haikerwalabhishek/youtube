@@ -5,9 +5,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  color: white;
+  /* background-color:rgb(27, 27, 27); */
+  scrollbar-width:thin;
+  scrollbar-color: rgb(27, 27, 27) rgb(27, 27, 27); 
+  &:hover{
+      scrollbar-color: #ffffffb0 rgb(27, 27, 27); 
+  };
+}
+
+.iconbg{
+  background-color: transparent!important;
 }

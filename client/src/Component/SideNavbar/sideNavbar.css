@@ -1,29 +1,118 @@
-.home-sideNav{
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    height: 92vh;
-    overflow-y: auto;
-    position: fixed;
-    top:55px;
-    left:0px;
-    width: 200px;
-    padding: 14px;
-    background-color: rgb(27, 27, 27);
-    flex:0.16 1;
-    color: white;
+.home-sideNav {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  padding: 0px 14px;
+  background-color: rgb(27, 27, 27);
+  flex: 0.16 1;
+  color: white;
+  z-index: 30;
 }
 
-.home-sideNavTopOptionTitile{
-    height: 40px;;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    &:hover{
-        background-color: rgb(47,47,47);
-        border-radius: 10px;
-    }
-    font-weight: 600;
+.moveRight{
+  animation: moveRight 0.4s ease-in-out forwards;
+}
+
+.moveLeft{
+  animation: moveLeft 0.2s ease-in-out forwards;
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.home-sideNavTopOptionTitile {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(47, 47, 47);
+    border-radius: 10px;
+  }
+  font-weight: 600;
+}
+
+
+
+.sidenav-ham{
+  /* width:45px; */
+  height:56px;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  gap:5px;
+}
+.ham-btn{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.ham-btn:hover{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  background-color: rgb(58,57,57);
+  border-radius: 50%;
+}
+
+.sidenav_youtubeTitle{
+  font-size:23px;
+  word-spacing: 0px;
+  letter-spacing:0px;
+  font-family: "Oswald", "sans-serif";
+  font-weight:400;
+  font-style:normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.hide{
+  display: none;
+}
+
+.signIngSide{
+  margin: 0 auto;
+  background-color: rgb(47, 47, 47);
+  width: 50%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover{
+    background-color: rgb(40, 40, 40);
+  }
 }
