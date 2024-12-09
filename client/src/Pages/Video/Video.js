@@ -27,13 +27,13 @@ const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
                 </div>
                 <div className="youtube_video_ProfileBlock">
                     <div className="youtube_video_ProfileBlock_left">
-                        <div className="youtube_video_ProfileBlock_left_img">
-                        <img className="youtube_video_ProfileBlock_left_image" src="https://yt3.ggpht.com/ukwasFtDX1b4_Qo7r2z2hsdUL4CFm6ewAmtw41SFbkY98fEeDEaomuzVQ9Lk7PBeSWqnjeAGOQ=s68-c-k-c0x00ffffff-no-rj" alt="profile picture"  />
-                        </div>
+                        <Link to={`/user/id`} style={{textDecoration:"none"}} className="youtube_video_ProfileBlock_left_img">
+                            <img className="youtube_video_ProfileBlock_left_image" src="https://yt3.ggpht.com/ukwasFtDX1b4_Qo7r2z2hsdUL4CFm6ewAmtw41SFbkY98fEeDEaomuzVQ9Lk7PBeSWqnjeAGOQ=s68-c-k-c0x00ffffff-no-rj" alt="profile picture"  />
+                        </Link>
                         <div className="youtubeVideo_subView">
-                            <div className="youtubePostProfileName">
+                            <Link to={`/user/id`} style={{textDecoration:"none"}} className="youtubePostProfileName">
                                 {"User Name"}
-                            </div>
+                            </Link>
                             <div className="youtubePostProfileSubs">
                                 {"10k"}
                             </div>
@@ -73,7 +73,7 @@ const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
 
                     <div className="youtubeOthersComments">
                         {Array(6).fill(null).map((_,idx)=>{return(
-                            <Link key={idx+100} to={`/watch/${idx+100}`}className="youtubeSelfComment">
+                            <div className="youtubeSelfComment">
                                 <img className="video_youtubeSelfCommentProfile" src="https://yt3.ggpht.com/ukwasFtDX1b4_Qo7r2z2hsdUL4CFm6ewAmtw41SFbkY98fEeDEaomuzVQ9Lk7PBeSWqnjeAGOQ=s68-c-k-c0x00ffffff-no-rj" alt="profile picture" />
                                 <div className="othersCommentSections">
                                     <div className="others_commentSectionHeaderBox">
@@ -87,7 +87,7 @@ const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
                                         wow nice
                                     </div>
                                 </div>
-                        </Link>
+                        </div>
                         )})}
                     </div>
                 </div>
@@ -98,7 +98,7 @@ const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
 
         <div className="videoSuggestions">
            { Array(20).fill(null).map((_,idx)=>(
-                <div className="videoSuggestionBlock">
+                <Link key={idx+100} to={`/watch/${idx+100}`} style={{textDecoration:"none"}} className="videoSuggestionBlock">
                 <div className="videoSuggestionThumbnail">
                     <img src="/youtube.jpg" alt="thumbnail" className="video_suggestion_thumbnail_img" />
                 </div>
@@ -111,7 +111,7 @@ const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
                     <div className="video_suggestions_About_profile">130K views - 1 day ago</div>
                 </div>
                 
-            </div>
+            </Link>
             ))}
         </div>
     </div>

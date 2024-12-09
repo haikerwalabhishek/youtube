@@ -287,7 +287,7 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                         </div>
                         {!userPic ? "": (
                             <>
-                            <div className="nav-model-option">Profile</div>
+                            <Link to={`/user/id`} style={{textDecoration:"none"}} className="nav-model-option">Profile</Link>
                             <div className="nav-model-option">Logout</div>
                         </>
                         )}
