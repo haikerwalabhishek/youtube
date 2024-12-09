@@ -16,6 +16,9 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import MenuIcon from "@mui/icons-material/Menu";
 import LockIcon from '@mui/icons-material/Lock';
 
+
+import {Link} from "react-router-dom"
+
 const SideNavbar = ({userPic, toggleSidebar, setToggleSidebar }) => {
   const sidenavRef = useRef(null);
 
@@ -43,10 +46,10 @@ const SideNavbar = ({userPic, toggleSidebar, setToggleSidebar }) => {
         <div className={`home-sideNavTopOption`}>
           {/* ===================================== home ============================= */}
           <div
-            className="sidenav-ham"
-            onClick={() => setToggleSidebar((prev) => !prev)}>
+            className="sidenav-ham">
             <Tooltip
               className="sidenav-ham"
+              onClick={() => setToggleSidebar((prev) => !prev)}
               title="Menu"
               arrow
               componentsProps={{
@@ -73,33 +76,37 @@ const SideNavbar = ({userPic, toggleSidebar, setToggleSidebar }) => {
                   width: "33px!important",
                 }}
               />
-              <img src="/youtube.png" className="nav_youtubeImage" />
-              <span className="sidenav_youtubeTitle">YouTube</span>
+             <Link to="/" style={{textDecoration:"none",display:"flex", gap:"2px"}}>
+                <img src="/youtube.png" className="nav_youtubeImage" />
+                <span className="sidenav_youtubeTitle">YouTube</span>
+              </Link>
             </Tooltip>
           </div>
-          <Tooltip
-            title="Home"
-            className="home-sideNavTopOptionTitile"
-            arrow
-            componentsProps={{
-              tooltip: {
-                sx: {
-                  bgcolor: "rgb(58,57,57)", // Background color
-                  color: "white", // Text color
-                  fontSize: "14px", // Font size
-                  borderRadius: "4px", // Rounded corners
-                  padding: "8px", // Padding
+          <Link to="/" style={{textDecoration:"none"}}>
+            <Tooltip
+              title="Home"
+              className="home-sideNavTopOptionTitile"
+              arrow
+              componentsProps={{
+                tooltip: {
+                  sx: {
+                    bgcolor: "rgb(58,57,57)", // Background color
+                    color: "white", // Text color
+                    fontSize: "14px", // Font size
+                    borderRadius: "4px", // Rounded corners
+                    padding: "8px", // Padding
+                  },
                 },
-              },
-              arrow: {
-                sx: {
-                  color: "black", // Arrow color matching the tooltip background
+                arrow: {
+                  sx: {
+                    color: "black", // Arrow color matching the tooltip background
+                  },
                 },
-              },
-            }}>
-            <HomeIcon />
-            Home
-          </Tooltip>
+              }}>
+              <HomeIcon />
+              Home
+            </Tooltip>
+          </Link>
           {/* ===================================== shorts ============================= */}
           <Tooltip
             title="Shorts"
