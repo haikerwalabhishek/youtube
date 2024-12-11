@@ -1,5 +1,6 @@
 import React, {useState,useRef, useEffect} from "react";
 import "./navbar.css";
+import Login from "../Login/Login";
 
 
 //icons
@@ -20,10 +21,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import {Link} from "react-router-dom"
 
-const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
+const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
     const [floatNav, setFloatNav] = useState(false);
     const [themeMenu, setThemeMenu] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
+    const [login,setLogin] = useState(false);
     const navRef = useRef(null);
     const navRef1 = useRef(null);
 
@@ -45,6 +47,14 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
             setThemeMenu(false);
         }
     };
+
+    const onPopup = (button)=>{
+        if(button==="Login"){
+            setLogin(true)
+        }else{
+            setLogin(false)
+        }
+    }
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
@@ -193,9 +203,9 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                                         },
                                     }}
                                     >
-                                    <div className="nav-options-right">
-                                    <VideoCallIcon sx={{color:"white", height:"30px", width:"30px"}}/>
-                                    </div>
+                                    <Link to="/id/upload" style={{textDecoration:"none"}} className="nav-options-right">
+                                        <VideoCallIcon sx={{color:"white", height:"30px", width:"30px"}}/>
+                                    </Link>
                                 </Tooltip>,
                                 <Tooltip
                                     className="nav-ham"
@@ -278,7 +288,7 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                 </div>
             </Tooltip>
                 )}
-                {userPic ? "":<div className="signIng">SignIn &nbsp;<LockIcon/></div>}
+                {userPic ? "":<div className="signIng" onClick={()=>onPopup("Login")}>SignIn &nbsp;<LockIcon onClick={()=>onPopup("Login")}/></div>}
                 {floatNav && (
                     <div className="nav-model" ref={navRef}>
                         <div className="nav-model-option" onClick={openThemeSelector}>
@@ -288,7 +298,7 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                         {!userPic ? "": (
                             <>
                             <Link to={`/user/id`} style={{textDecoration:"none"}} className="nav-model-option">Profile</Link>
-                            <div className="nav-model-option">Logout</div>
+                            <div onClick={()=>onPopup("Logout")} className="nav-model-option">Logout</div>
                         </>
                         )}
                     </div>
@@ -307,6 +317,10 @@ const Navbar = ({userPic, setToggleTheme,setToggleSidebar})=>{
                     </div>
                 )}
             </div>
+
+            {
+                login && <Login onPopup={onPopup}/>
+            }
             
         </div>
     )
