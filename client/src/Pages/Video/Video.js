@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./video.css"
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
+    const [message, setMessage] = useState("");
 
   return (
     <div className='video'>
@@ -63,7 +64,7 @@ const Video = ({userPic,toggleSidebar,setToggleSidebar}) => {
                     <div className="youtubeSelfComment">
                         <img className="video_youtubeSelfCommentProfile" src="https://yt3.ggpht.com/ukwasFtDX1b4_Qo7r2z2hsdUL4CFm6ewAmtw41SFbkY98fEeDEaomuzVQ9Lk7PBeSWqnjeAGOQ=s68-c-k-c0x00ffffff-no-rj" alt="profile picture" />
                         <div className="addComment">
-                            <input type="text" className="addCommentInput" placeholder = "Add a comment"/>
+                            <input value={message} onChange={(e)=>{setMessage(e.target.value)}} type="text" className="addCommentInput" placeholder = "Add a comment"/>
                             <div className="cancelSubmitComment">
                                 <div className="cancelCommentBtn">Cancel</div>
                                 <div className="cancelComment">Comment</div>

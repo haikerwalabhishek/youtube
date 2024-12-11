@@ -12,7 +12,8 @@ import SignUp from './Pages/SignUp/SignUp.js';
 function App() {
   const [toggleTheme,setToggleTheme] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(null);
-  const [userPic, setUserPic] = useState(false);
+  const [userPic, setUserPic] = useState(true);
+  // const [isSignUpPage, setIsSignUpPage] = useState(false)
 
   
   return (

@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./videoUpload.css"
 import {Link} from "react-router-dom"
 
 const VideoUpload = () => {
+
+    const [videoFeild,setVideoFeild] = useState({"title":"","description":"","category":""})
+
+    const handleOnChange =(event,name)=>{
+      setVideoFeild({
+        ...videoFeild,[name]:event.target.value
+      })
+    };
+  
   return (
     <div className='videoUpload'>
         <div className="uploadBox">
@@ -12,9 +21,9 @@ const VideoUpload = () => {
             </div>
 
             <div className="uploadForm">
-                <input placeholder="Title of video" type="text" className="uploadFormInput" />
-                <input placeholder="Description" type="text" className="uploadFormInput" />
-                <input placeholder="Category" type="text" className="uploadFormInput" />
+                <input value={videoFeild.title} onChange={(e)=>handleOnChange(e,"title")} placeholder="Title of video" type="text" className="uploadFormInput" />
+                <input value={videoFeild.description} onChange={(e)=>handleOnChange(e,"description")} placeholder="Description" type="text" className="uploadFormInput" />
+                <input value={videoFeild.category} onChange={(e)=>handleOnChange(e,"category")} placeholder="Category" type="text" className="uploadFormInput" />
                 <div className="uploadThumbnail">
                 <label htmlFor="thumbnailUpload" className="thumbnailLabel">
                     <span className='ThumbnailLabelSpan'>Thumbnail</span>
@@ -31,7 +40,7 @@ const VideoUpload = () => {
                 </div>
                 <div className="uploadThumbnail">
                 <label htmlFor="thumbnailUpload" className="thumbnailLabel">
-                    <span>Video</span>
+                    <span className='ThumbnailLabelSpan'>Video</span>
                     <div className="uploadButton">
                     Choose File
                     </div>
