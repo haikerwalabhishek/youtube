@@ -2,17 +2,49 @@ import React, {useState} from 'react'
 import "./signup.css";
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
 
-    const [signUpFeild,setSignUpFeild] = useState({"channelName":"","userName":"","Password":"","about":"",profilePic:""});
     const [uploadedImageUrl, setUploadedImageUrl] = useState("")
+    const [signUpFeild,setSignUpFeild] = useState({"channelName":"","userName":"","Password":"","about":"",profilePic:uploadedImageUrl});
 
     const handleOnChange =(event,name)=>{
         setSignUpFeild({
         ...signUpFeild,[name]:event.target.value
       })
     };
+
+    const uploadImage = async (e) => {
+        const files = e.target.files;
+        
+        if (!files || files.length === 0) {
+            console.error("No file selected");
+            return;
+        }
+    
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "youtube_clone"); 
+    
+        try {
+            const response = await axios.post(
+                "https://api.cloudinary.com/v1_1/dystsps0w/image/upload",
+                data
+            );
+            console.log("Upload Successful:", response.data);
+            const imageUrl = response.data.secure_url;
+            console.log("Image URL:", imageUrl);
+            setUploadedImageUrl(imageUrl);
+            
+            setSignUpFeild({
+                ...signUpFeild,profilePic:imageUrl
+              })
+        } catch (error) {
+            console.error("Upload Failed:", error.response ? error.response.data : error.message);
+        }
+    };
+    
 
   return (
     <div className="signUp">
@@ -35,6 +67,7 @@ const SignUp = () => {
                     </div>
                 </label>
                 <input 
+                    onChange={(e)=>uploadImage(e)}
                     type="file" 
                     id="thumbnailUpload" 
                     accept="image/*" 
@@ -44,7 +77,7 @@ const SignUp = () => {
                 {
                     uploadedImageUrl && 
                     <div className="profile_top_section_profil/e">
-                        <img style={{width:"100px", borderRadius:"50%"}} src={uploadedImageUrl} alt=""/>
+                        <img style={{width:"100px", height:"100px", borderRadius:"50%"}} src={uploadedImageUrl} alt=""/>
                     </div>
                 }
             </div>
