@@ -2,13 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import "./homepage.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
-const HomePage = () => {
+const HomePage = ({searchTerm}) => {
+
   const scrollContainerRef = useRef(null);
   const [isLeftVisible, setIsLeftVisible] = useState(false);
   const [isRightVisible, setIsRightVisible] = useState(true);
-
-  const options = ["All","Music","Gaming","Hip Hop", "Memes", "Trailers", "Comedy","Watched"]
+  const [videoData,setVideoData] = useState([])
+  const [options,setOptions] = useState([])
 
   const updateScrollButtons = () => {
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -24,6 +26,43 @@ const HomePage = () => {
     scrollContainerRef.current.scrollBy({ left: 200, behavior: "smooth" });
   };
 
+  const fetchVideos = async()=>{
+    axios.get("http://localhost:4000/watch/videos")
+    .then(res => {
+      console.log(res);
+      setVideoData(res?.data?.videos)
+      setOptions((prevOptions) => {
+        // Extract the videoTypes from the new data
+        const newVideoTypes = res?.data?.videos?.map((video) => video.videoType);
+        
+        // Combine the previous options with the new videoTypes and eliminate duplicates
+        const uniqueVideoTypes = [...new Set([...prevOptions, ...newVideoTypes])];
+        
+        return uniqueVideoTypes;
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
+  const fetchVideosBySearchTerm = async()=>{
+    console.log(searchTerm,"searchTerm")
+    const response = await axios.get(`http://localhost:4000/watch/videos/search/${searchTerm}`);
+    // console.log("videoType: ",videoType)
+    console.log(response,"videos")
+    setVideoData(response?.data?.videos)
+  }
+
+  const fetchVideosbyVideoType = async(videoType)=>{
+    const response = await axios.get('http://localhost:4000/watch/videos/type', {
+      params: { videoType: videoType }
+    });
+    console.log("videoType: ",videoType)
+    console.log(response,"videos")
+    setVideoData(response?.data?.videos)
+  }
+
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
 
@@ -34,9 +73,15 @@ const HomePage = () => {
     // Initial check
     updateScrollButtons();
 
+    const fetchData = async () => {
+        await fetchVideos();
+    };
+    if(searchTerm){fetchVideosBySearchTerm()}
+    else{fetchData()};
+
     // Cleanup listener on unmount
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [searchTerm]);
 
   return (
     <div className="homepage">
@@ -51,7 +96,7 @@ const HomePage = () => {
           </div>
         )}
         {options.map((option, index) => (
-          <div key={index} className="homepage_option">
+          <div key={option} onClick={()=>fetchVideosbyVideoType(option)} className="homepage_option">
             {option}
           </div>
         ))}
@@ -64,29 +109,29 @@ const HomePage = () => {
 
       {/* main page */}
       <div className="home_mainPage">
-        {Array(6).fill(null).map((_,idx)=>{
+        {videoData?.map((obj,idx)=>{
           return (
-            <Link key={idx-100} to={`/watch/${idx-100}`} className="youtube_video">
+            <Link key={obj?._id} to={`/watch/${obj?._id}`} className="youtube_video">
             {/* thumbnail */}
             <div className="thumbnailBox">
-              <img src="/youtube.jpg" alt="thumbnail" className="thumbnailImg" />
-              <div className="timeStamp">
+              <img src={obj?.thumbnail} alt="thumbnail" className="thumbnailImg" />
+              {/* <div className="timeStamp">
                 28.05
-              </div>
+              </div> */}
             </div>
   
             {/* title and pic */}
             <div className="youtube_titleBox">
               {/* PROFILE */}
               <div className="youtube_profilePic">
-                <img src="https://yt3.ggpht.com/ukwasFtDX1b4_Qo7r2z2hsdUL4CFm6ewAmtw41SFbkY98fEeDEaomuzVQ9Lk7PBeSWqnjeAGOQ=s68-c-k-c0x00ffffff-no-rj" alt="profile picture" className="profilePic_youtube" />
+                <img src={obj?.user.profilePic} alt="profile picture" className="profilePic_youtube"/>
               </div>
   
               <div className="video_info_title">
-                <div className="videoTitle">Channel name</div>
-                <div className="channelName">User 1</div>
-                <div className="video_views">3 likes</div>
-                <div className="video_views">90k views</div>
+                <div className="videoTitle">{obj?.title}</div>
+                <div className="channelName">{obj?.user?.channelName}</div>
+                <div className="video_views">{obj?.like}&nbsp;likes</div>
+                {/* <div className="video_views">90k views</div> */}
               </div>
             </div>
   

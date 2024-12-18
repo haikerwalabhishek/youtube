@@ -12,7 +12,7 @@
 .loginCard{
     border-radius: 20px;
     width:40%;
-    height:60%;
+    height:fit-content;
     /* margin-top:10px; */
     background-color: rgb(27,27,27);
     box-sizing: border-box;
@@ -46,5 +46,15 @@
     background-color: #222222;
     border: none;
     border-radius: 5px;
+}
+
+@media (max-width:425px){
+    .loginCard{
+        width: 90%;
+        height: fit-content;
+    }
+    .uploadFormInputLogin{
+        width: 100%;
+    }
 }
 

@@ -192,3 +192,30 @@
         background-color:rgb(51, 51, 51);
     };
 }
+
+
+@media (max-width:425px){
+    .nav_mic{
+        display: none;
+    }
+    .navbar{
+        flex-wrap: wrap;
+        flex:1 1 0;
+        justify-content:space-around;
+        height: fit-content;
+    }
+    .nav-left{
+        width: 100%;
+    }
+    .nav-left > .nav-ham{
+        position: fixed;
+        top: 10px;
+        left: 0;
+    }
+    .nav-middle{
+        width: fit-content;
+    }
+    .nav_searchBox{
+        width: 100%;
+    }
+}

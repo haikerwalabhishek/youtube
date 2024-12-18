@@ -369,7 +369,7 @@ const SideNavbar = ({userPic, toggleSidebar, setToggleSidebar }) => {
             <SettingsIcon />
             Settings
           </Tooltip>
-          ]:<div className="signIngSide">SignIn &nbsp;<LockIcon/></div>}
+          ]:""}
         </div>
       </div>
     </div>

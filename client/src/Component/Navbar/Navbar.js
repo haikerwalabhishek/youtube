@@ -1,7 +1,8 @@
 import React, {useState,useRef, useEffect} from "react";
 import "./navbar.css";
 import Login from "../Login/Login";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 //icons
 import Tooltip from '@mui/material/Tooltip';
@@ -21,21 +22,28 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import {Link} from "react-router-dom"
 
-const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
+const Navbar = ({login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,setToggleSidebar})=>{
     const [floatNav, setFloatNav] = useState(false);
     const [themeMenu, setThemeMenu] = useState(false);
-    const [isToggled, setIsToggled] = useState(false);
-    const [login,setLogin] = useState(false);
+    
+    // const [isToggled, setIsToggled] = useState(false);
+    // const [login,setLogin] = useState(false);
+    const [profilePic,setProfilePic] = useState("/photo.png")
     const navRef = useRef(null);
     const navRef1 = useRef(null);
+    const navigate = useNavigate();
+
+    const handleInputChange = (event) => {
+        setSearchTerm(event.target.value); 
+      };
 
     const handleToggle = () => {
         setFloatNav((prev) => !prev);
     };
 
-    const openThemeSelector = ()=>{
-        setThemeMenu((prev)=> !prev);
-    };
+    // const openThemeSelector = ()=>{
+    //     setThemeMenu((prev)=> !prev);
+    // };
 
     const handleClickOutside = (event) => {
         if ((navRef.current && !navRef.current.contains(event.target))) {
@@ -48,19 +56,39 @@ const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
         }
     };
 
+    const getLogout = async()=>{
+        axios.post("http://localhost:4000/auth/logOut",{},{withCredentials:true}).then((res)=>{
+            console.log(res);
+        }).catch((err)=>console.log(err))
+    }
+
     const onPopup = (button)=>{
         if(button==="Login"){
-            setLogin(true)
-        }else{
-            setLogin(false)
+            setLogin(true);
+        }else if (button==="Logout"){
+            setUserPic((prev)=>false);
+            localStorage.clear();
+            console.log("heelo");
+            getLogout();
+            setTimeout(()=>{
+                navigate("/")
+                window.location.reload();
+            },1000);
         }
+        else{setLogin(false)}
     }
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
+        let Pic = localStorage.getItem("picture");
+
+        if(Pic){
+            setProfilePic(Pic)
+        }
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+
     }, []);
     
     return (
@@ -125,9 +153,10 @@ const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
             {/* navbar middle */}
             <div className="nav-middle">
                 <div className="nav_searchBox">
-                    <input type="text" placeholder="search" className="nav_searchBoxImput" />
+                    <input type="text" placeholder="search" value={searchTerm} onChange={handleInputChange} className="nav_searchBoxImput" />
                     <div className="nav_searchIconBox">
                     <Tooltip
+                        // onClick={()=>fetchVideosBySearchTerm()}
                         title="Search"
                         arrow
                         componentsProps={{
@@ -254,7 +283,7 @@ const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
                                     }}
                                     >
                                     <div className="nav-options-right">
-                                        {userPic ? <PersonIcon sx={{color:"white", height:"30px", width:"30px"}} onClick={handleToggle}/> : <img src="/photo.png" alt="user picture" style={{ height: "35px", width: "35px", borderRadius: "50%" }} onClick={handleToggle}/>}
+                                        {userPic ?   <img src={profilePic} style={{width:"100%", height:"100%"}} alt="user picture" style={{ height: "35px", width: "35px", borderRadius: "50%" }} onClick={handleToggle}/> : <PersonIcon sx={{color:"white", height:"30px", width:"30px"}} onClick={handleToggle}/>}
                                     </div>
                                 </Tooltip>
                 ]:(
@@ -284,26 +313,26 @@ const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
                             alt="user picture" 
                             style={{ height: "35px", width: "35px", borderRadius: "50%" }} 
                     /> */}
-                    {userPic ? "" : <MoreVertIcon className="circleSideNave" sx={{color:"white", height:"30px", width:"30px"}} onClick={handleToggle}/>}
+                    {/* {userPic ? "" : <MoreVertIcon className="circleSideNave" sx={{color:"white", height:"30px", width:"30px"}} onClick={handleToggle}/>} */}
                 </div>
             </Tooltip>
                 )}
                 {userPic ? "":<div className="signIng" onClick={()=>onPopup("Login")}>SignIn &nbsp;<LockIcon onClick={()=>onPopup("Login")}/></div>}
                 {floatNav && (
                     <div className="nav-model" ref={navRef}>
-                        <div className="nav-model-option" onClick={openThemeSelector}>
+                        {/* <div className="nav-model-option" onClick={openThemeSelector}>
                             Theme &nbsp;&nbsp;&nbsp;
                             <ChevronRightIcon />
-                        </div>
+                        </div> */}
                         {!userPic ? "": (
                             <>
-                            <Link to={`/user/id`} style={{textDecoration:"none"}} className="nav-model-option">Profile</Link>
+                            <Link to={`/user/${localStorage.getItem("user")}`} style={{textDecoration:"none"}} className="nav-model-option">Profile</Link>
                             <div onClick={()=>onPopup("Logout")} className="nav-model-option">Logout</div>
                         </>
                         )}
                     </div>
                 )}
-                {themeMenu && (
+                {/* {themeMenu && (
                     <div className="nav-model" ref={navRef1}>
                         <div className="nav-model-back" onClick={()=>{setThemeMenu(false); setFloatNav(true)}}><ArrowBackIcon/></div>
                         <div className="nav-model-option" onClick={()=>{setToggleTheme(true); setIsToggled(true)}}>
@@ -315,11 +344,11 @@ const Navbar = ({userPic,setUserPic, setToggleTheme,setToggleSidebar})=>{
                             Dark Theme
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
 
             {
-                login && <Login onPopup={onPopup}/>
+                login && <Login onPopup={onPopup} setUserPic={setUserPic} userPic={userPic}/>
             }
             
         </div>

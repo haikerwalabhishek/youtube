@@ -1,9 +1,29 @@
-import React from 'react'
+import React, {useEffect,useState} from 'react'
 import "./profile.css"
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 const Profile = () => {
+  const [profileData,setProfileData] = useState([]);
+  const [user,setUser] = useState(null)
+  const {id} = useParams();
+
+  const fetchProfileData= async()=>{
+    console.log(id)
+    axios.get(`http://localhost:4000/watch/${id}/videos`).then((res)=>{
+      console.log(res);
+      setProfileData(res?.data?.videos);
+      setUser(res?.data.videos[0]?.user);
+    })
+    .catch((e)=>console.log(e))
+  }
+
+  useEffect(()=>{
+    fetchProfileData();
+  },[]);
+
   return (
     <div class="profile">
       <div className="profile_page">
@@ -12,18 +32,18 @@ const Profile = () => {
         <div className="profile_top_section">
 
           <div className="profile_top_section_profil/e">
-            <img className="profile_top_section_img" src="/photo.png" alt=""/>
+            <img className="profile_top_section_img" src={profileData[0]?.user?.profilePic} alt=""/>
           </div>
 
         <div className="profile_top_section_About">
           <div className="profile_top_section_About_Name">
-            Coding ji
+           {user?.channelName}
           </div>
           <div className="profile_top_section_info">
-            @user - 1.3k subscriber - 123 videos
+            @{user?.username} - {profileData.length} videos
           </div>
           <div className="profile_top_section_info">
-            About Section of Channel
+            About:&nbsp; {user?.about}
           </div>
         </div>
         </div>
@@ -36,15 +56,15 @@ const Profile = () => {
         <div className="profileVideos">
 
           {/* div for a video */}
-          {Array(10).fill(null).map((_,idx)=>(
-            <Link key={idx-100} style={{"text-decoration":"none"}} to={`/watch/${idx-100}`} className="profileVideo_block">
+          {profileData.map((obj,idx)=>(
+            <Link key={obj?._id} style={{"text-decoration":"none"}} to={`/watch/${obj?._id}`} className="profileVideo_block">
               <div className="profileVideo_block_thumbnail">
-                <img className="profileVideo_block_thumbnail_img" src="/youtube.jpg" alt="thumbnail" />    
+                <img className="profileVideo_block_thumbnail_img" src={obj?.thumbnail} alt="thumbnail" />    
               </div>
               
               <div className='profileVideo_block_detail'>
-                <div className="profile_block_detail_name">video title</div>
-                <div className="profile_block_detail_about">Create at 2024-09-12</div>
+                <div className="profile_block_detail_name">{obj?.title}</div>
+                <div className="profile_block_detail_about">Created at {obj?.createdAt.split("T")[0]}</div>
               </div>
             </Link>
           ))}

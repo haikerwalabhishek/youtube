@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./videoUpload.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 const VideoUpload = () => {
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
   const [videoFeild, setVideoFeild] = useState({
     title: "",
     description: "",
-    category: "",
     videoLink: "",
     thumbnail: "",
     videoType: "",
@@ -24,6 +24,14 @@ const VideoUpload = () => {
     });
   };
 
+  const handleSubmit = async ()=>{
+    console.log("videoFeild",videoFeild)
+    axios.post(`http://localhost:4000/watch/video`,videoFeild,{
+      withCredentials: true,
+    }).then((res)=>console.log(res)).catch(err=>console.log(err))
+    navigate(`/user/${localStorage.getItem("user")}`)
+  };
+
   const uploadFiles = async (e, type) => {
     setLoader(true)
     const files = e.target.files;
@@ -32,6 +40,7 @@ const VideoUpload = () => {
       console.error("No file selected");
       return;
     }
+
 
     const data = new FormData();
     data.append("file", files[0]);
@@ -63,6 +72,14 @@ const VideoUpload = () => {
     }
   };
 
+
+  useEffect(()=>{
+    let isLogin = localStorage.getItem("user");
+    if(isLogin==null){
+      navigate("/")
+    }
+  },[])
+
   return (
     <div className="videoUpload">
       <div className="uploadBox">
@@ -88,7 +105,7 @@ const VideoUpload = () => {
           />
           <input
             value={videoFeild.category}
-            onChange={(e) => handleOnChange(e, "category")}
+            onChange={(e) => handleOnChange(e, "videoType")}
             placeholder="Category"
             type="text"
             className="uploadFormInput"
@@ -128,7 +145,7 @@ const VideoUpload = () => {
           )}
 
           <div className="uploadBtns">
-            <div className="uploadBtn-form uploadThumbnail">Upload</div>
+            <div onClick={()=>handleSubmit()} className="uploadBtn-form uploadThumbnail">Upload</div>
             <Link
               style={{ textDecoration: "none" }}
               to="/"

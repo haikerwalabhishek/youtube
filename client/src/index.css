@@ -27,3 +27,11 @@ code {
 .iconbg{
   background-color: transparent!important;
 }
+
+.customToast *{
+  color:black!important;
+}
+
+html{
+  background-color: rgb(27,27,27);
+}
