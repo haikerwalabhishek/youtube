@@ -2,10 +2,10 @@ import React from 'react'
 import "./home.css"
 import HomePage from '../../Component/HomePage/HomePage'
 
-const Home = ({searchTerm}) => {
+const Home = ({setPressButton,searchTerm,pressButton}) => {
   return (
     <div className="home">
-        <HomePage searchTerm={searchTerm}/>
+        <HomePage setPressButton={setPressButton} pressButton={pressButton} searchTerm={searchTerm}/>
     </div>
   )
 }

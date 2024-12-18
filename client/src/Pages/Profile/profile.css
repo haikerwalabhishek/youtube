@@ -107,3 +107,16 @@
     color:#abababab;
     font-size: 13px;;
 }
+
+@media (max-width:425px){
+    .profile{
+        margin-top: 160px;
+    }
+    .profile_top_section_img{
+        height: 70px;
+        width: 70px;
+    }
+    .profile_top_section_About_Name{
+        font-size: 30px;
+    }
+}

@@ -19,10 +19,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CheckIcon from '@mui/icons-material/Check';
 import LockIcon from '@mui/icons-material/Lock';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import {Link} from "react-router-dom"
 
-const Navbar = ({login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,setToggleSidebar})=>{
+const Navbar = ({pressButton,login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,setToggleSidebar,setPressButton})=>{
     const [floatNav, setFloatNav] = useState(false);
     const [themeMenu, setThemeMenu] = useState(false);
     
@@ -36,6 +37,11 @@ const Navbar = ({login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,set
     const handleInputChange = (event) => {
         setSearchTerm(event.target.value); 
       };
+
+    const handleClearSearch = () => {
+    setSearchTerm(""); 
+    setPressButton(false); 
+    };
 
     const handleToggle = () => {
         setFloatNav((prev) => !prev);
@@ -124,6 +130,7 @@ const Navbar = ({login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,set
                 </div>
                 <Link to="/" style={{textDecoration:"none"}}>
                 <Tooltip
+                    // onClick={()=>window.location.reload()}
                     className="nav_youtubeImg"
                     title="Youtube Home"
                     arrow
@@ -176,7 +183,7 @@ const Navbar = ({login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,set
                             },
                         }}
                         >
-                        <SearchIcon sx={{ color: "white", fontSize: "28px" }} />
+                        {pressButton ? <ClearIcon onClick={handleClearSearch} sx={{ color: "white", fontSize: "28px" }} />:<SearchIcon onClick={()=>setPressButton(true)} sx={{ color: "white", fontSize: "28px" }} />}
                     </Tooltip>
                     </div>
                 </div>

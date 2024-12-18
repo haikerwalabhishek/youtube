@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {Link} from "react-router-dom";
 import axios from "axios";
 
-const HomePage = ({searchTerm}) => {
+const HomePage = ({setPressButton,searchTerm,pressButton}) => {
 
   const scrollContainerRef = useRef(null);
   const [isLeftVisible, setIsLeftVisible] = useState(false);
@@ -52,6 +52,7 @@ const HomePage = ({searchTerm}) => {
     // console.log("videoType: ",videoType)
     console.log(response,"videos")
     setVideoData(response?.data?.videos)
+    // setPressButton(false);
   }
 
   const fetchVideosbyVideoType = async(videoType)=>{
@@ -76,12 +77,12 @@ const HomePage = ({searchTerm}) => {
     const fetchData = async () => {
         await fetchVideos();
     };
-    if(searchTerm){fetchVideosBySearchTerm()}
+    if(searchTerm && pressButton){fetchVideosBySearchTerm();}
     else{fetchData()};
 
     // Cleanup listener on unmount
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
-  }, [searchTerm]);
+  }, [pressButton]);
 
   return (
     <div className="homepage">

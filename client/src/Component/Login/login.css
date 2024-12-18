@@ -58,3 +58,14 @@
     }
 }
 
+@media (max-width:770px){
+    .loginCard{
+        width: 70%;
+        height: fit-content;
+    }
+    .uploadFormInputLogin{
+        width: 100%;
+    }
+}
+
+

@@ -252,7 +252,7 @@ const Video = ({ setLogin }) => {
             <video
               width="100%"
               key={videoUrl}
-              height="409px"
+              height="100%"
               style={{ borderRadius: "10px" }}
               controls
               autoPlay

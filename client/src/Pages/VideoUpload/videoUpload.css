@@ -117,3 +117,22 @@
   background-color: #0056b3;
   color: white;
 }
+
+@media (max-width:425px){
+  .videoUpload{
+    margin-top: 150px;
+  }
+  .uploadBox{
+    width: 70%;
+  }
+  .uploadBtn-form{
+    min-width:fit-content!important;
+  }
+
+}
+
+@media (max-width:768px){
+  .uploadBtn-form{
+    min-width:80px;
+  }
+}
