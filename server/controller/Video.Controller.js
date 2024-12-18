@@ -172,6 +172,9 @@ exports.toggleLike = async (req, res) => {
   try {
     const { id } = req.params; // Video ID
     const userId = req.user; // Assuming user ID is available in req.user (middleware)
+    if(!userId){
+     return 
+    }
 
     const video = await Video.findById(id);
     if (!video) {
@@ -216,6 +219,9 @@ exports.toggleDislike = async (req, res) => {
   try {
     const { id } = req.params; // Video ID
     const userId = req.user; // Assuming user ID is available in req.user (middleware)
+    if(!userId){
+      return 
+     }
 
     const video = await Video.findById(id);
     if (!video) {

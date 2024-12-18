@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { PATH } from "../../constants";
 
 const VideoUpload = () => {
   const [loader, setLoader] = useState(false);
@@ -26,7 +27,7 @@ const VideoUpload = () => {
 
   const handleSubmit = async ()=>{
     console.log("videoFeild",videoFeild)
-    axios.post(`http://localhost:4000/watch/video`,videoFeild,{
+    axios.post(`${PATH}watch/video`,videoFeild,{
       withCredentials: true,
     }).then((res)=>console.log(res)).catch(err=>console.log(err))
     navigate(`/user/${localStorage.getItem("user")}`)

@@ -3,6 +3,7 @@ import "./homepage.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import { PATH } from "../../constants";
 
 const HomePage = ({setPressButton,searchTerm,pressButton}) => {
 
@@ -27,7 +28,7 @@ const HomePage = ({setPressButton,searchTerm,pressButton}) => {
   };
 
   const fetchVideos = async()=>{
-    axios.get("http://localhost:4000/watch/videos")
+    axios.get(`${PATH}watch/videos`)
     .then(res => {
       console.log(res);
       setVideoData(res?.data?.videos)
@@ -48,7 +49,7 @@ const HomePage = ({setPressButton,searchTerm,pressButton}) => {
 
   const fetchVideosBySearchTerm = async()=>{
     console.log(searchTerm,"searchTerm")
-    const response = await axios.get(`http://localhost:4000/watch/videos/search/${searchTerm}`);
+    const response = await axios.get(`${PATH}watch/videos/search/${searchTerm}`);
     // console.log("videoType: ",videoType)
     console.log(response,"videos")
     setVideoData(response?.data?.videos)
@@ -56,7 +57,7 @@ const HomePage = ({setPressButton,searchTerm,pressButton}) => {
   }
 
   const fetchVideosbyVideoType = async(videoType)=>{
-    const response = await axios.get('http://localhost:4000/watch/videos/type', {
+    const response = await axios.get(`${PATH}watch/videos/type`, {
       params: { videoType: videoType }
     });
     console.log("videoType: ",videoType)

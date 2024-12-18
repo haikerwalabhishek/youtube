@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import {PATH} from "../../constants.js"
 
 
 const Login = ({onPopup,userPic,setUserPic}) => {
@@ -22,7 +23,7 @@ const Login = ({onPopup,userPic,setUserPic}) => {
 
   const handleLogin =async()=>{
     setProgresss(true)
-    axios.post("http://localhost:4000/auth/logIn",loginFeild,{ withCredentials: true }).then((res)=>{
+    axios.post(`${PATH}auth/logIn`,loginFeild,{ withCredentials: true }).then((res)=>{
       console.log(res)
       setProgresss(false)
       localStorage.setItem("token",res?.data?.token)

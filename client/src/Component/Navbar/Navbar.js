@@ -22,6 +22,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import {Link} from "react-router-dom"
+import { PATH } from "../../constants.js";
 
 const Navbar = ({pressButton,login,setLogin,userPic,setUserPic, setSearchTerm,searchTerm,setToggleSidebar,setPressButton})=>{
     const [floatNav, setFloatNav] = useState(false);
@@ -63,7 +64,7 @@ const Navbar = ({pressButton,login,setLogin,userPic,setUserPic, setSearchTerm,se
     };
 
     const getLogout = async()=>{
-        axios.post("http://localhost:4000/auth/logOut",{},{withCredentials:true}).then((res)=>{
+        axios.post(`${PATH}auth/logOut`,{},{withCredentials:true}).then((res)=>{
             console.log(res);
         }).catch((err)=>console.log(err))
     }

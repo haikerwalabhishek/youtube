@@ -7,6 +7,7 @@ import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { data, Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { PATH } from "../../constants";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -33,7 +34,7 @@ const Video = ({ setLogin }) => {
     console.log(newMessage, "msg");
     try {
       await axios.put(
-        `http://localhost:4000/messages/editComment/${commentId}`,
+        `${PATH}messages/editComment/${commentId}`,
         { message: newMessage },
         { withCredentials: true }
       );
@@ -59,7 +60,7 @@ const Video = ({ setLogin }) => {
 
       // Use 'data' to send body in a DELETE request
       await axios.delete(
-        `http://localhost:4000/messages/deleteComment/${commentId}`,
+        `${PATH}messages/deleteComment/${commentId}`,
         {
           data: { videoOwnerId }, // This is the key to send data in a DELETE request
           withCredentials: true,
@@ -80,7 +81,7 @@ const Video = ({ setLogin }) => {
   // const handleLike = async () => {
   //   try {
   //     const res = await axios.put(
-  //       `http://localhost:4000/watch/video/likes/${id}`,
+  //       `${PATH}watch/video/likes/${id}`,
   //       {},
   //       { withCredentials: true }
   //     );
@@ -101,7 +102,7 @@ const Video = ({ setLogin }) => {
   // const handleDislike = async () => {
   //   try {
   //     const res = await axios.put(
-  //       `http://localhost:4000/watch/video/dislikes/${id}`,
+  //       `${PATH}watch/video/dislikes/${id}`,
   //       {},
   //       { withCredentials: true }
   //     );
@@ -123,8 +124,8 @@ const Video = ({ setLogin }) => {
     try {
       const endpoint =
         reactionType === "like"
-          ? `http://localhost:4000/watch/video/likes/${id}`
-          : `http://localhost:4000/watch/video/dislikes/${id}`;
+          ? `${PATH}watch/video/likes/${id}`
+          : `${PATH}watch/video/dislikes/${id}`;
       const res = await axios.put(endpoint, {}, { withCredentials: true });
       const { like, dislike } = res.data;
 
@@ -144,7 +145,7 @@ const Video = ({ setLogin }) => {
 
   const fetchVideoById = async () => {
     await axios
-      .get(`http://localhost:4000/watch/video/${id}`, { withCredentials: true })
+      .get(`${PATH}watch/video/${id}`, { withCredentials: true })
       .then((res) => {
         console.log(res);
         setDataSingleVideo(res?.data?.video);
@@ -163,7 +164,7 @@ const Video = ({ setLogin }) => {
   const getVideosByVideoType = async () => {
     if (dataSingleVideo?.videoType) {
       await axios
-        .get(`http://localhost:4000/watch/videos/${dataSingleVideo?.videoType}`)
+        .get(`${PATH}watch/videos/${dataSingleVideo?.videoType}`)
         .then((res) => {
           console.log("myname is:  ", res);
           // setDataSingleVideo(res?.data?.video)
@@ -176,7 +177,7 @@ const Video = ({ setLogin }) => {
 
   const getCommentByVideoId = async () => {
     await axios
-      .get(`http://localhost:4000/messages/getComment/${id}`)
+      .get(`${PATH}messages/getComment/${id}`)
       .then((res) => {
         console.log(res);
         setComments(res?.data?.comments || []);
@@ -194,7 +195,7 @@ const Video = ({ setLogin }) => {
     if (localStorage.getItem("user")) {
       try {
         // Send the comment to the server
-        await axios.post(`http://localhost:4000/messages/addComment/`, body, {
+        await axios.post(`${PATH}messages/addComment/`, body, {
           withCredentials: true,
         });
         console.log("Comment posted successfully");

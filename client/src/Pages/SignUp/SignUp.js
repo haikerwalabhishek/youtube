@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { PATH } from "../../constants";
 
 const SignUp = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
@@ -31,7 +32,7 @@ const SignUp = () => {
     console.log(signUpFeild)
     setProgress(true);
     axios
-      .post(`http://localhost:4000/auth/signUp`, signUpFeild)
+      .post(`${PATH}auth/signUp`, signUpFeild)
       .then((res) => {
         console.log(res);
         toast.success(res?.data?.message,{

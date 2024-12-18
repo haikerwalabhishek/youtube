@@ -4,6 +4,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useParams } from 'react-router-dom';
+import { PATH } from '../../constants.js';
 
 const Profile = () => {
   const [profileData,setProfileData] = useState([]);
@@ -12,7 +13,7 @@ const Profile = () => {
 
   const fetchProfileData= async()=>{
     console.log(id)
-    axios.get(`http://localhost:4000/watch/${id}/videos`).then((res)=>{
+    axios.get(`${PATH}watch/${id}/videos`).then((res)=>{
       console.log(res);
       setProfileData(res?.data?.videos);
       setUser(res?.data.videos[0]?.user);
