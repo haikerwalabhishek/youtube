@@ -30,11 +30,6 @@ This assignment evaluates the basic knowledge gained in Node.js and Express.js f
 
 ### Prerequisites
 - Node.js and express js, brcypt, jwt, mongoose, dotenv, body-parser, cookie-parser, cors
-
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/haikerwalabhishek/ShopyGlobeBackend.git
    
 2. Install the dependencies:
    - node js
